@@ -1,10 +1,15 @@
-import { useState } from "react";
+import Header from "./components/Header";
+import HomePage from "./components/HomePage";
 import "./index.css";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-blue-600 text-5xl font-bold">React TranScribe</h1>
+    <div className="flex flex-col max-w-[1000px] mx-auto w-full">
+      <section className="min-h-screen flex flex-col">
+        <Header />
+        <HomePage />
+      </section>
+      <footer></footer>
     </div>
   );
 }
