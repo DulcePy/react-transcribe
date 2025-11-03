@@ -5,7 +5,7 @@ export default function Header() {
         Free<span className="text-blue-600 bold">Scribe</span>
       </h1>
 
-      <button className="flex items-center gap-2">
+      <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer specialBtn">
         <p>New</p>
         <i className="fa-solid fa-plus"></i>
       </button>
