@@ -1,14 +1,16 @@
 export default function Header() {
   return (
     <header className="flex items-center justify-between gap-4 p-4">
-      <h1 className="font-medium">
-        Free<span className="text-blue-600 bold">Scribe</span>
-      </h1>
+      <a href="/">
+        <h1 className="font-medium">
+          Free<span className="text-blue-600 bold">Scribe</span>
+        </h1>
+      </a>
 
-      <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 text-sm cursor-pointer specialBtn">
+      <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 text-sm cursor-pointer specialBtn">
         <p>New</p>
         <i className="fa-solid fa-plus"></i>
-      </button>
+      </a>
     </header>
   );
 }
