@@ -91,7 +91,7 @@ function App() {
         <Header />
 
         {output ? (
-          <Information />
+          <Information output={output} />
         ) : loading ? (
           <Transcribing />
         ) : isAudioAvailable ? (
