@@ -7,34 +7,44 @@ class MyTranscriptionPipeline {
   static instance = null;
 
   static async getInstance(progress_callback = null) {
-    if (this.instance === null) {
-      this.instance = await pipeline(this.task, null, { progress_callback });
+    try {
+      if (this.instance === null) {
+        this.instance = await pipeline(this.task, this.model, {
+          progress_callback,
+        });
+      }
+      return this.instance;
+    } catch (err) {
+      //console.error("Failed to initialize pipeline:", err);
+      throw err;
     }
-
-    return this.instance;
   }
 }
 
 self.addEventListener("message", async (event) => {
-  const [type, audio] = event.data;
+  const { type, audio } = event.data;
   if (type === MessageTypes.INFERENCE_REQUEST) {
     await transcribe(audio);
   }
 });
 
 async function transcribe(audio) {
-  sendLoadingMessage("Loading");
+  sendLoadingMessage("loading");
+
   let pipeline;
 
   try {
     pipeline = await MyTranscriptionPipeline.getInstance(load_model_callback);
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    //console.log(err);
+    sendLoadingMessage("error");
+    return; // stop execution
   }
 
   sendLoadingMessage("success");
 
   const stride_length_s = 5;
+
   const generationTracker = new GenerationTracker(pipeline, stride_length_s);
   await pipeline(audio, {
     top_k: 0,
@@ -43,15 +53,14 @@ async function transcribe(audio) {
     stride_length_s,
     return_timestamps: true,
     callback_function:
-      generationTracker.callbackFunction.blind(generationTracker),
-    chunk_callback: generationTracker.chunkCallback.blind(generationTracker),
+      generationTracker.callbackFunction.bind(generationTracker),
+    chunk_callback: generationTracker.chunkCallback.bind(generationTracker),
   });
   generationTracker.sendFinalResult();
 }
 
 async function load_model_callback(data) {
   const { status } = data;
-
   if (status === "progress") {
     const { file, progress, loaded, total } = data;
     sendDownloadingMessage(file, progress, loaded, total);
@@ -77,20 +86,22 @@ async function sendDownloadingMessage(file, progress, loaded, total) {
 
 class GenerationTracker {
   constructor(pipeline, stride_length_s) {
-    (this.pipeline = pipeline),
-      (this.stride_length_s = stride_length_s),
-      (this.chunks = []),
-      (this.time_precision =
-        pipeline?.processor.feature_extractor.config.chunk_length /
-        pipeline.model.config.max_source_positions),
-      (this.processed_chunks = []),
-      (this.callbackFunctionCounter = 0);
+    if (!pipeline || !pipeline.processor || !pipeline.model) {
+      throw new Error("Pipeline no está correctamente inicializado");
+    }
+
+    this.pipeline = pipeline;
+    this.stride_length_s = stride_length_s;
+    this.chunks = [];
+    this.time_precision =
+      pipeline.processor.feature_extractor.config.chunk_length /
+      pipeline.model.config.max_source_positions;
+    this.processed_chunks = [];
+    this.callbackFunctionCounter = 0;
   }
 
   sendFinalResult() {
-    self.postMessage({
-      type: MessageTypes.INFERENCE_DONE,
-    });
+    self.postMessage({ type: MessageTypes.INFERENCE_DONE });
   }
 
   callbackFunction(beams) {

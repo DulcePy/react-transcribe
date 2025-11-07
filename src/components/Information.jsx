@@ -3,13 +3,14 @@ import Transcription from "./Transcription";
 import Translation from "./Translation";
 
 export default function Information(props) {
-  const { output } = props;
+  const { output, finished } = props;
   const [tab, setTab] = useState("transcription");
   const [translation, setTranslation] = useState(null);
   const [translating, setTranslating] = useState(null);
   const [toLanguage, setToLanguage] = useState("Select language");
 
   const worker = useRef();
+
   useEffect(() => {
     if (!worker.current) {
       worker.current = new Worker(
@@ -107,7 +108,12 @@ export default function Information(props) {
         </button>
       </div>
 
-      <div className="my-8 flex flex-col">
+      <div className="my-8 flex flex-col-reverse max-w-porse w-full mx-auto gap-4">
+        {(!finished || translating) && (
+          <div className="grid place-items-center">
+            <i className="fa-solid fa-spinner animate-spin"></i>
+          </div>
+        )}
         {tab === "transcription" ? (
           <Transcription {...props} textElement={textElement} />
         ) : (

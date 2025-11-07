@@ -1,16 +1,75 @@
-# React + Vite
+# 🎙️ React Transcribe
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Descripción
 
-Currently, two official plugins are available:
+React Transcribe es una aplicación web moderna desarrollada con React que permite transcribir audio y realizar traducciones de manera eficiente. La aplicación procesa archivos de audio y genera transcripciones precisas, con la capacidad adicional de traducir el contenido a diferentes idiomas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características Principales
 
-## React Compiler
+- 🎯 Transcripción de audio a texto
+- 🌍 Traducción de transcripciones
+- 📁 Soporte para múltiples formatos de audio
+- 💻 Procesamiento local (sin necesidad de servidores externos)
+- 🚀 Interfaz de usuario intuitiva y moderna
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- **React** - Framework principal de desarrollo
+- **Vite** - Herramienta de construcción y desarrollo
+- **Tailwind CSS** - Framework de estilos
+- **@xenova/transformers** - Biblioteca para procesamiento de audio y traducción
+- **Web Workers** - Para procesamiento en segundo plano
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🗂️ Estructura del Proyecto
+
+```
+src/
+├── components/         # Componentes de React
+│   ├── FileDisplay     # Visualización de archivos
+│   ├── Header         # Encabezado de la aplicación
+│   ├── HomePage       # Página principal
+│   ├── Information    # Información y ayuda
+│   ├── Transcribing   # Componente de transcripción
+│   ├── Transcription  # Visualización de transcripciones
+│   └── Translation    # Componente de traducción
+├── utils/             # Utilidades
+│   ├── presets.js     # Configuraciones predefinidas
+│   ├── translate.worker.js    # Worker para traducciones
+│   └── whisper.worker.js      # Worker para transcripciones
+└── assets/           # Recursos estáticos
+```
+
+## 🚀 Instalación y Uso
+
+1. **Clonar el repositorio:**
+
+```bash
+git clone https://github.com/DulcePy/react-transcribe.git
+cd react-transcribe
+```
+
+2. **Instalar dependencias:**
+
+```bash
+npm install
+```
+
+3. **Iniciar el servidor de desarrollo:**
+
+```bash
+npm run dev
+```
+
+4. **Construir para producción:**
+
+```bash
+npm run build
+```
+
+## 💡 Cómo Usar
+
+1. Abre la aplicación en tu navegador
+2. Sube un archivo de audio
+3. Selecciona las opciones de transcripción
+4. Espera a que se complete el proceso
+5. ¡Listo! Podrás ver la transcripción y traducirla si lo deseas

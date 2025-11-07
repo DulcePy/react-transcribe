@@ -38,6 +38,7 @@ function App() {
       switch (e.data.type) {
         case "DOWNLOADING":
           setDownloading(true);
+
           break;
 
         case "LOADING":
@@ -91,7 +92,7 @@ function App() {
         <Header />
 
         {output ? (
-          <Information output={output} />
+          <Information output={output} finished={finished} />
         ) : loading ? (
           <Transcribing />
         ) : isAudioAvailable ? (
@@ -99,7 +100,7 @@ function App() {
             handleFormSubmission={handleFormSubmission}
             handleAudioReset={handleAudioReset}
             file={file}
-            audioStream={setAudioStream}
+            audioStream={audioStream}
           />
         ) : (
           <HomePage setFile={setFile} setAudioStream={setAudioStream} />
