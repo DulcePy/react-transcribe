@@ -14,7 +14,7 @@ React Transcribe es una aplicación web moderna desarrollada con React que permi
 
 ## 👉🏽 Preview 
 
-<img src="public/1762975535067.jpg" width="700" />
+<img src="public/1762975535067.jpg" width="900" />
 
 ## 🛠️ Tecnologías Utilizadas
 
