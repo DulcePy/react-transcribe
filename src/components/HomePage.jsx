@@ -76,15 +76,22 @@ export default function HomePage(props) {
       </h1>
 
       <h3 className="font-medium md:text-lg">
-        Record <span className="text-blue-400">&rarr;</span> Transcribe{" "}
-        <span className="text-blue-400">&rarr;</span> Translate
+        Record{" "}
+        <span className="text-blue-400">
+          <i className="fa-solid fa-arrow-right"></i>
+        </span>{" "}
+        Transcribe{" "}
+        <span className="text-blue-400">
+          <i className="fa-solid fa-arrow-right"></i>
+        </span>{" "}
+        Translate
       </h3>
 
       <button
         onClick={
           recordingStatus === "recording" ? stopRecording : startRecording
         }
-        className="flex items-center text-base justify-between gap-4 mx-auto w-60 max-w-full my-4 specialBtn px-4 py-2 rounded-xl text-blue-400"
+        className="flex items-center text-base justify-between gap-4 mx-auto w-80 max-w-full my-4 specialBtn px-4 py-2 rounded-xl text-blue-400"
       >
         <p> {recordingStatus === "inactive" ? "Record" : `Stop recording`}</p>
 
@@ -101,7 +108,7 @@ export default function HomePage(props) {
 
       <p className="text-base">
         Or{" "}
-        <label className="text-blue-400 cursor-pointer hover:text-blue-600 duration-200">
+        <label className="text-blue-500 cursor-pointer hover:text-blue-700 duration-200">
           upload{" "}
           <input
             onChange={(e) => {

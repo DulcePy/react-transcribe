@@ -7,7 +7,7 @@ export default function Header() {
         </h1>
       </a>
 
-      <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 text-sm cursor-pointer specialBtn">
+      <a href="/" className="flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 font-medium text-sm cursor-pointer specialBtn">
         <p>New</p>
         <i className="fa-solid fa-plus"></i>
       </a>
