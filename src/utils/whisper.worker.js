@@ -1,5 +1,8 @@
-import { pipeline } from "@xenova/transformers";
+import { pipeline, env } from "@xenova/transformers";
 import { MessageTypes } from "./presets";
+
+env.allowLocalModels = false;
+//env.useBrowserCache = true;
 
 class MyTranscriptionPipeline {
   static task = "automatic-speech-recognition";
@@ -7,17 +10,13 @@ class MyTranscriptionPipeline {
   static instance = null;
 
   static async getInstance(progress_callback = null) {
-    try {
-      if (this.instance === null) {
-        this.instance = await pipeline(this.task, this.model, {
-          progress_callback,
-        });
-      }
-      return this.instance;
-    } catch (err) {
-      //console.error("Failed to initialize pipeline:", err);
-      throw err;
+    if (this.instance === null) {
+      this.instance = await pipeline(this.task, null, {
+        progress_callback,
+      });
     }
+
+    return this.instance;
   }
 }
 
@@ -36,9 +35,7 @@ async function transcribe(audio) {
   try {
     pipeline = await MyTranscriptionPipeline.getInstance(load_model_callback);
   } catch (err) {
-    //console.log(err);
-    sendLoadingMessage("error");
-    return; // stop execution
+    console.log(err.message);
   }
 
   sendLoadingMessage("success");
@@ -86,15 +83,11 @@ async function sendDownloadingMessage(file, progress, loaded, total) {
 
 class GenerationTracker {
   constructor(pipeline, stride_length_s) {
-    if (!pipeline || !pipeline.processor || !pipeline.model) {
-      throw new Error("Pipeline no está correctamente inicializado");
-    }
-
     this.pipeline = pipeline;
     this.stride_length_s = stride_length_s;
     this.chunks = [];
     this.time_precision =
-      pipeline.processor.feature_extractor.config.chunk_length /
+      pipeline?.processor.feature_extractor.config.chunk_length /
       pipeline.model.config.max_source_positions;
     this.processed_chunks = [];
     this.callbackFunctionCounter = 0;
