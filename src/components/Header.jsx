@@ -3,7 +3,7 @@ export default function Header() {
     <header className="flex items-center justify-between gap-4 p-4">
       <a href="/">
         <h1 className="font-medium">
-          Free<span className="text-blue-600 bold">Scribe</span>
+          React<span className="text-blue-600 bold">Scribe</span>
         </h1>
       </a>
 
