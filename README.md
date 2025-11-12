@@ -12,9 +12,9 @@ React Transcribe es una aplicación web moderna desarrollada con React que permi
 - 💻 Procesamiento local (sin necesidad de servidores externos)
 - 🚀 Interfaz de usuario intuitiva y moderna
 
-## 👉🏽 Preview 
+## 👉🏽 Vista del proyecto
 
-<img src="public/1762975535067.jpg" width="900" />
+<img src="public/1762975535067.jpg" alt="Vista del proyecto" />
 
 ## 🛠️ Tecnologías Utilizadas
 
